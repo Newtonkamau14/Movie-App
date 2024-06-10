@@ -14,13 +14,8 @@ function App() {
    const searchMovies = async (title: string) => {
     const response = await fetch(`${API_URL}&s=${title}`);
     const data = await response.json();
-    console.log(data.Search)
     setMovies(data.Search);
-    if (!process.env.OMDB_API_KEY) {
-      console.error("OMDB API key is not set");
-      return;
-    }
-
+    
     try {
       const response = await fetch(`${API_URL}&s=${title}`);
       const data = await response.json();
