@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import SearchIcon from "./assets/search.svg";
-import MovieCard, { Movie } from "./components/MovieCard";
+import MovieCard from "./components/MovieCard";
+import { Movie } from "./components/MovieCard";
 
-const API_URL = `http://www.omdbapi.com?apikey=${process.env.REACT_APP_OMDB_API_KEY}`;
+const API_URL = `http://www.omdbapi.com?apikey=${process.env.OMDB_API_KEY}`;
+
+
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const searchMovies = async (title: string) => {
-    if (!process.env.REACT_APP_OMDB_API_KEY) {
+  const [searchTerm,setSearchTerm] = useState('')
+   const searchMovies = async (title: string) => {
+    const response = await fetch(`${API_URL}&s=${title}`);
+    const data = await response.json();
+    console.log(data.Search)
+    setMovies(data.Search);
+    if (!process.env.OMDB_API_KEY) {
       console.error("OMDB API key is not set");
       return;
     }
-    
+
     try {
       const response = await fetch(`${API_URL}&s=${title}`);
       const data = await response.json();
@@ -28,10 +34,10 @@ function App() {
     }
   };
 
+
   useEffect(() => {
     searchMovies("Pirates");
   }, []);
-
   return (
     <>
       <div className="app">
@@ -45,10 +51,10 @@ function App() {
           />
           <img src={SearchIcon} alt="search" onClick={() => searchMovies(searchTerm)} />
         </div>
-        {movies.length > 0 ? (
+        {movies?.length > 0 ? (
           <div className="container">
             {movies.map((movie) => (
-              <MovieCard key={movie.imdbID} movie={movie} />
+              <MovieCard key={movie.imdbID} movie={movie}/>
             ))}
           </div>
         ) : (
