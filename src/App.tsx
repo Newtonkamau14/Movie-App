@@ -4,7 +4,9 @@ import SearchIcon from "./assets/search.svg";
 import MovieCard from "./components/MovieCard";
 import { Movie } from "./components/MovieCard";
 
-const API_URL = `https://www.omdbapi.com?apikey=${process.env.OMDB_API_KEY}`;
+const API_KEY =  import.meta.env.VITE_OMDB_API_KEY
+
+const API_URL = `https://www.omdbapi.com?apikey=${API_KEY}`;
 
 
 

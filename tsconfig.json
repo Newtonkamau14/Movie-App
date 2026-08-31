@@ -4,22 +4,23 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "skipLibCheck": true,
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Environment Types */
+    "types": ["node", "@playwright/test"]
   },
-  "include": ["src"],
+  "include": ["src", "**/*.spec.ts", "**/*.test.ts", "playwright.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
